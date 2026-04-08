@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
+
+map<string, vector<string>> graph;
+
+void addEdge(string user, string movie) {
+graph[user].push_back(movie);
+}
+
+void recommendMovies(string user) {
+cout << "Recommended movies for " << user << ":\n";
+
+for (auto movie : graph[user]) {  
+    for (auto &pair : graph) {  
+        if (pair.first != user) {  
+            for (auto m : pair.second) {  
+                if (m == movie) {  
+                    for (auto rec : pair.second) {  
+                        if (rec != movie)  
+                            cout << rec << endl;  
+                    }  
+                }  
+            }  
+        }  
+    }  
+}
+
+}
+
+int main() {
+addEdge("User1", "Inception");
+addEdge("User1", "Titanic");
+
+addEdge("User2", "Inception");  
+addEdge("User2", "Avengers");  
+
+addEdge("User3", "Titanic");  
+addEdge("User3", "Avatar");  
+
+recommendMovies("User1");  
+
+return 0;
+
+} 
